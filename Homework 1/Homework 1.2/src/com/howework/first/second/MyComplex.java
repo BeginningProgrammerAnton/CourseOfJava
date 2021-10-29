@@ -74,8 +74,18 @@ public class MyComplex {
 
     @Override
     public boolean equals(Object o) {
-        if (Math.abs(this.imag - this.real) < 0.000001 ) return true;
-        else return false;
+        if (this == o) return true;
+        if (!(o instanceof MyComplex)) return false;
+        MyComplex myComplex = (MyComplex) o;
+        return this.real == myComplex.real && this.imag == myComplex.imag;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 18;
+        result = 31 * result + (int)Double.doubleToLongBits(real);
+        result = 31 * result + (int)Double.doubleToLongBits(imag);
+        return result;
     }
 
     public double magnitude() {

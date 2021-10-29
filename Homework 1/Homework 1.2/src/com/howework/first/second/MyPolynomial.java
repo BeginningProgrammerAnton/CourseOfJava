@@ -28,8 +28,11 @@ public class MyPolynomial {
     }
 
     public double evaluate(double x) {
-//  не нашел что должен делать метод
-        return x;
+        double res = 0;
+        for (int i = 0,j = coeffs.length - 1; i < coeffs.length; i++,j--) {
+            res += Math.pow(x,j) * coeffs[i];
+        }
+        return res;
     }
 
     public MyPolynomial add (MyPolynomial right) {
