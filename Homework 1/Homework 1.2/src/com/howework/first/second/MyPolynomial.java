@@ -12,6 +12,22 @@ public class MyPolynomial {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyPolynomial that = (MyPolynomial) o;
+        return Arrays.equals(this.coeffs,that.coeffs);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + Arrays.hashCode(coeffs);
+        return result;
+    }
+
     public int getDegree() {
         return coeffs.length;
     }

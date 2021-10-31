@@ -1,5 +1,7 @@
 package com.howework.first.second;
 
+import java.util.Objects;
+
 public class Ball {
     private float x;
     private float y;
@@ -54,6 +56,28 @@ public class Ball {
 
     public void setyDelta(float yDelta) {
         this.yDelta = yDelta;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ball ball = (Ball) o;
+        return this.x == ball.x && this.y == ball.y && this.radius == ball.radius && this.xDelta == ball.xDelta && this.yDelta == ball.yDelta;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + radius;
+        result = 31 * result + Float.floatToIntBits(x);
+        result = 31 * result + Float.floatToIntBits(y);
+        result = 31 * result + (int)Float.floatToIntBits(xDelta);
+        result = 31 * result + (int)Float.floatToIntBits(yDelta);
+
+        return result;
+
     }
 
     public void move() {

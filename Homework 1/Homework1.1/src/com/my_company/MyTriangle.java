@@ -1,5 +1,7 @@
 package com.my_company;
 
+import java.util.Objects;
+
 public class MyTriangle {
     private MyPoint v1;
     private MyPoint v2;
@@ -23,6 +25,26 @@ public class MyTriangle {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MyTriangle)) return false;
+        MyTriangle mt = (MyTriangle) o;
+        return this.v1.equals(mt.v1) && this.v2.equals(mt.v2) && this.v3.equals(mt.v3);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + v1.hashCode();
+        result = 31 * result + v2.hashCode();
+        result = 31 * result + v3.hashCode();
+
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "MyTriangle[" +
                 "v1=" + v1 +
@@ -37,6 +59,7 @@ public class MyTriangle {
 
 
     public String getType() {
+        final double epsilon = 0.000001;
         if((Math.abs(v1.distance(v2) - v2.distance(v3)) <= epsilon) && (Math.abs(v2.distance(v3) - v3.distance(v1)) <= epsilon) && (Math.abs(v1.distance(v2) - v3.distance(v1)) <= epsilon)){
             return Type.Equilateral.name();
         }

@@ -1,5 +1,7 @@
 package com.my_company;
 
+import java.util.Objects;
+
 public class MyPoint {
     private int x = 0;
     private int y = 0;
@@ -36,6 +38,23 @@ public class MyPoint {
     public void setXY(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MyPoint)) return false;
+        MyPoint mp = (MyPoint) o;
+        return this.x == mp.x && this.y == mp.y;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + x;
+        result = 31 * result + y;
+        return result;
     }
 
     @Override

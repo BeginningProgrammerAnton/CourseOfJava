@@ -1,5 +1,7 @@
 package com.my_company;
 
+import java.util.Objects;
+
 public class Employee {
     private int id;
     private String firstName;
@@ -45,6 +47,26 @@ public class Employee {
         int new_salary = salary * percent / 100;
         salary += new_salary;
         return salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+        Employee emp = (Employee) o;
+        return this.salary == emp.salary && this.id == emp.id && this.firstName.equals(emp.firstName) && this.lastName.equals(emp.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + id;
+        result = 31 * result + salary;
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+
+        return result;
     }
 
     @Override

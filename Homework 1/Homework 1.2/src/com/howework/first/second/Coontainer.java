@@ -1,5 +1,7 @@
 package com.howework.first.second;
 
+import java.util.Objects;
+
 public class Coontainer {
     private int x1;
     private int y1;
@@ -28,7 +30,29 @@ public class Coontainer {
     public int getHeigth() {
         return x2;
     }
-    public boolean collides ( Ball ball) {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coontainer that = (Coontainer) o;
+        return x1 == that.x1 && y1 == that.y1 && x2 == that.x2 && y2 == that.y2;
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = 17;
+
+        result = 31 * result + x1;
+        result = 31 * result + x2;
+        result = 31 * result + y1;
+        result = 31 * result + y2;
+
+        return result;
+    }
+
+    public boolean collides (Ball ball) {
         if ( x1 <= ball.getX() + ball.getRadius() && ball.getX() + ball.getRadius() <= x2 && y1 <= ball.getY() + ball.getRadius() && ball.getY() + ball.getRadius() <= y2) {
             return true;
         }

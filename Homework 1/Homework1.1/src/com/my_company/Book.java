@@ -1,6 +1,7 @@
 package com.my_company;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Vector;
 
 public class Book {
@@ -45,6 +46,25 @@ public class Book {
 
     public void setQty(int qty) {
         this.qty = qty;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book)) return false;
+        Book book = (Book) o;
+        return this.name.equals(book.name) && this.price == book.price && this.qty == book.qty && Arrays.equals(this.authors,book.authors);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (int)Double.doubleToLongBits(price);
+        result = 31 * result + qty;
+        result = 31 * result + Arrays.hashCode(authors);
+        return result;
     }
 
     @Override
