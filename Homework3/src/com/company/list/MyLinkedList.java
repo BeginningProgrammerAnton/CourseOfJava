@@ -109,7 +109,21 @@ public class MyLinkedList<E> implements ILinkedList<E>{
     }
 
     @Override
+    public void add(E element) {
+        addHead(element);
+    }
+
+
+    @Override
     public void clear() {
+        Node<E> tmp = tail;
+        while (tmp != null) {
+            Node<E> current = tmp.nextNode;
+            tmp.element = null;
+            tmp.nextNode = null;
+            tmp.prevNode = null;
+            tmp = current;
+        }
         tail = null;
         head = null;
         size = 0;
