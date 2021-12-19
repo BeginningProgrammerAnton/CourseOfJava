@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Info about person</h1>
+<p th:text="'Information: ' + ${find.getInfo()}" />
+<p th:text="'Your browser: ' + ${find.getBrowser()}" />
+<p th:text="'Date now: ' + ${find.getDate()}" />
+
+<a href="/find">Back to find page</a>
+</body>
+</html>

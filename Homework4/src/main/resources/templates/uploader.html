@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>ADD FILE</h1>
+<h3>You just to upload file as text example</h3>
+<p>("LastName" "FirstName","FatherName","Age","Salary","email","Work place")</p>
+<input id = "fileupload" type = "file" name = "fileupload"/>
+<button id = "upload-button" onclick="uploadFile()">Upload</button><br>
+<script>
+    async function uploadFile() {
+        let formData = new FormData();
+        formData.append("file",fileupload.files[0]);
+        let response = await fetch("/upload", {
+            method: "POST",
+            body: formData
+        });
+        if (response.status == 200) {
+            alert("File uploaded.");
+        }
+    }
+</script>
+<a href="/home">Back to home page</a>
+
+</body>
+</html>

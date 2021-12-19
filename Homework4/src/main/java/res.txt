@@ -1,0 +1,12 @@
+Половинкин Антон,Николаевич,22,7777,antoshapol@mail.ru,Reebok
+Крохина Алёна,Николаевич,18,666,alena.krohina21@mail.ru,Adidas
+Шагаев Кирилл,Николаевич,48,888,xhm89111@zwoho.com,nike
+Илюхин Илья,Николаевич,30,7777,antoshapol@mail.ru,Reebok
+Балаболов Иван,Григорьевич,18,666,alena.krohina21@mail.ru,Adidas
+Шагаев Кирилл,Николаевич,48,888,xhm89111@zwoho.com,nike
+Кол Колов,Колыч,36,360,xhm89111@zwoho.com,Неткреакер
+Никитин Дравослав,Борисыч,134,666,antoshapol@mail.ru,Тула
+Илюхин Илья,Николаевич,30,7777,antoshapol@mail.ru,Reebok
+Балаболов Иван,Григорьевич,18,666,alena.krohina21@mail.ru,Adidas
+Шагаев Кирилл,Николаевич,48,888,xhm89111@zwoho.com,nike
+Глебов Глеб,Глебович,18,360000,gleb.gleb@mail.ru,Netcreaker
