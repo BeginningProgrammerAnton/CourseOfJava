@@ -1,0 +1,22 @@
+.table {
+
+  width: 100%;
+  overflow: hidden;
+}
+.table th, .table td {
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+}
+.table th, .table td {
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+}
+.table td:hover {
+  background: #91cec9;
+}
+

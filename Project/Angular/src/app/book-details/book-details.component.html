@@ -1,0 +1,127 @@
+<ng-template #notFound2>
+  <h3 style="color: red">Book is not available.
+      Please reload page </h3>
+</ng-template>
+
+<div class="container">
+  <div class="row">
+  <div class="col">
+    <div *ngIf="book">
+      <div class="card" style="width: 25rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{book.name}}</h5>
+          <p class="card-text">{{book.discription}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Author: {{book.author}}</li>
+          <li class="list-group-item">Genre: {{book.genre}}</li>
+          <li class="list-group-item">Rating: {{book.rating}}/5</li>
+          <li class="list-group-item">
+            <div class="form-group">
+              <div *ngIf="error != 404; else notFound2">
+                <div *ngIf="checkBook(id,user) === true">
+                  <div *ngIf="book.availableQuantity != 0">
+                    <form class="form-inline my-2 my-lg-0" [formGroup]="form"  #f="ngForm" novalidate      name="form" (ngSubmit)="takeBook(newDays,takeInfo.userInfo)">
+                      <input class="form-control mr-sm-2" type="number" placeholder="Enter Days for take" aria-label="Search" [(ngModel)]="newDays" name="name" formControlName="days">
+
+                      <button [disabled]="!form.get('days').valid" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Take</button>
+                      <div class="alert alert-danger" role="alert" *ngIf="form.get('days').invalid && (form.get('days').touched || form.get('days').dirty)">
+                        <span   *ngIf="form.get('days').errors?.required ">Days is required</span>
+                        <span   *ngIf="form.get('days').errors?.max">You can take book less than 100</span>
+                        <span   *ngIf="form.get('days').errors?.min">You must enter number more than 0</span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div *ngIf="checkBook(id,user) === false">
+                  <button  (click)="backBook()" class="btn btn-outline-secondary my-2 my-sm-0">Turn</button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="book.availableQuantity == 0">
+              <p>Book is not available</p>
+            </div>
+            <div [hidden]="submitted">
+              <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmit()" >
+                <input class="form-control mr-sm-2" type="search" placeholder="Add comment" aria-label="Search" required maxlength="1000" [(ngModel)]="comment.text" name="Name" #com="ngModel">
+                <button [disabled]="!com.valid" (click)="reloadPage()" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Submit</button>
+                <div class="alert alert-danger" role="alert" *ngIf="com.errors && com.dirty && com.touched">
+                  <div *ngIf="com.errors.required"><p>Comment is required</p><p>Your comment must be less than 1000 symbols</p> </div>
+                </div>
+              </form>
+            </div>
+          </li>
+          <li class="list-group-item" *ngIf="showAdminBoard">
+            <button class="list-group-item" (click)="isDelete = true" class="btn btn-outline-secondary my-2 my-sm-0">Delete</button>
+            <button  class="list-group-item"(click)="updateBook(book.id)" class="btn btn-outline-secondary my-2 my-sm-0" style="margin-left: 10px">Update</button>
+            <div *ngIf="isDelete == true" class="alert alert-danger">
+              Are you sure about delete?
+              <p>
+                <button class="list-group-item" (click)="deleteBook(book.id)" class="btn btn-danger">Ok</button>
+                &nbsp;
+                <button (click)="isDelete = false" class="btn btn-success "> Cancel</button>
+              </p>
+            </div>
+
+          </li>
+          <li class="list-group-item" *ngIf="showModeratorBoard">
+            <button (click)="updateBook(book.id)" class="btn btn-outline-secondary my-2 my-sm-0" style="margin-left: 10px">Update</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 25rem;">
+      <div class="card-body">
+        <h5 class="card-title">Comments</h5>
+    <div class="comment-widgets">
+      <!-- Comment Row -->
+      <div *ngFor="let comment of new_comment | paginate: { itemsPerPage: 4, currentPage: p } ">
+        <div class="d-flex flex-row comment-row m-t-0">
+          <div class="p-2">
+            <img *ngIf="comment.author.gender == 'MAN'" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" width="50" class="rounded-circle">
+            <img *ngIf="comment.author.gender == 'WOMAN'" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="user" width="50" class="rounded-circle">
+          </div>
+          <div class="comment-text w-100">
+            <div class="author" on-click="userDetails(comment.author.id)"><h6>{{comment.author.username}}</h6></div>
+            <div *ngIf="comment.author.id == user.id || showModeratorBoard || showAdminBoard" class="comment-footer">
+              <div class="d-flex align-items-center mb-3">
+              <div class="author" on-click="updateComment(comment.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                </svg>
+                <a><i class="bi bi-pencil"></i> </a>
+              </div>
+                <p>&nbsp;</p>
+              <div class="author" on-click="delCom = true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+                <i class="bi bi-trash"></i>
+              </div>
+            </div>
+            </div>
+            <span class="m-b-15 d-block"> {{comment.text}}</span>
+          </div>
+
+        </div> <!-- Card -->
+        <div *ngIf="delCom == true" class="alert alert-danger">
+          Are you sure about delete?
+          <p>
+            <button class="list-group-item" (click)="deleteComment(comment.id)" class="btn btn-danger">Ok</button>
+            &nbsp;
+            <button (click)="delCom = false" class="btn btn-success "> Cancel</button>
+          </p>
+        </div>
+        <hr class="my-0" style="height: 1px;" />
+      </div>
+      <br>
+      <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+  </div>
+</div>
+  </div>
+</div>

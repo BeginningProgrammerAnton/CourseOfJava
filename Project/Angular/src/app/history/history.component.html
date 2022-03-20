@@ -1,0 +1,141 @@
+<div class="panel panel-primary"*ngIf="info.token; else loggedOut">
+  <div class="panel-heading">
+    <h2>History</h2>
+  </div>
+  <div class="panel-body">
+    <div class="scroll-table">
+    <table class="table1 table-striped ">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Book</th>
+        <th>Date Take</th>
+        <th>Date need to comeback</th>
+        <th>Date comeback</th>
+
+      </tr>
+      </thead>
+    </table>
+      <div class="scroll-table-body">
+        <table>
+      <tbody>
+      <tr *ngFor="let hist of history | async">
+
+        <td>{{hist.id}}</td>
+        <td on-click="userDetails(hist.userId.id)">{{hist.userId.username}}</td>
+        <td on-click="bookDetails(hist.bookId.id)">{{hist.bookId.name}}</td>
+        <td>{{hist.dateTake}}</td>
+        <td>{{hist.dateComeback}}</td>
+        <td *ngIf="hist.comebackDateTrue != null; else res">{{hist.comebackDateTrue}}</td>
+
+
+      </tr>
+      </tbody>
+    </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #res>
+    <td>0</td>
+  </ng-template>
+
+  <div class="panel-heading">
+    <h2>Popular Books</h2>
+  </div>
+  <div class="panel-body">
+    <div class="scroll-table">
+  <table class="table2 table-striped ">
+    <thead>
+    <tr>
+      <th>Position</th>
+      <th>Name</th>
+      <th>Author</th>
+      <th>Count taken</th>
+    </tr>
+    </thead>
+  </table>
+  <div class="scroll-table-body">
+    <table class ="table2">
+    <tbody>
+    <tr on-click = "bookDetails(book.id)" *ngFor="let book of popularBooks | async; let i = index" [attr.data-index]="i">
+      <td>{{i + 1}}</td>
+      <td>{{book.name}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.countTaken}}</td>
+    </tr>
+    </tbody>
+  </table>
+      </div>
+    </div>
+  </div>
+<div class="panel-heading">
+  <h2>Popular Users</h2>
+</div>
+<div class="panel-body">
+  <div class="scroll-table">
+    <table class="table table-striped ">
+      <thead>
+      <tr>
+        <th>Position</th>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Count taken</th>
+      </tr>
+      </thead>
+    </table>
+    <div class="scroll-table-body">
+      <table class = "table2">
+        <tbody>
+        <tr on-click="userDetails(user.id)" *ngFor="let user of usersPopular | async;let i = index" [attr.data-index]="i">
+          <td>{{i + 1}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.countTaken}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  <div class="panel-heading">
+    <h2>Users with credit</h2>
+  </div>
+  <div class="panel-body">
+    <div class="scroll-table">
+      <table class="table table-striped ">
+        <thead>
+        <tr>
+          <th>Position</th>
+          <th>Username</th>
+          <th>Count credits</th>
+          <th> Set books</th>
+        </tr>
+        </thead>
+      </table>
+      <div class="scroll-table-body">
+        <table class="table2">
+          <tbody>
+          <tr on-click="userDetails(user.id)" *ngFor="let user of usersBad | async;let i = index" [attr.data-index]="i">
+            <td>{{i + 1}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.countCredits}}</td>
+            <td >
+              <div *ngFor="let book of user.creditBooks">
+                {{book.name}}
+              </div>
+             </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loggedOut>
+  Please login for look books
+</ng-template>

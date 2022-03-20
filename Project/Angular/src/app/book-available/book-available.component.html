@@ -1,0 +1,32 @@
+<div class="panel panel-primary"*ngIf="info.token; else loggedOut">
+  <div class="panel-heading">
+    <h2>Available books</h2>
+  </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th on-click = "sortName()">Name</th>
+        <th on-click="sortAuthor()">Author</th>
+        <th on-click="sortGenre()">Genre</th>
+        <th on-click="sortRating()">Rating</th>
+        <th *ngIf="showAdminBoard == true">Count</th>
+        <th *ngIf="showAdminBoard == true">Available Quantity</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr on-click = "bookDetails(book.id)" onclick="bookDetails(book.id)" *ngFor="let book of books | async | paginate: { itemsPerPage: 10, currentPage: p }">
+        <td *ngIf="book.availableQuantity > 0">{{book.name}}</td>
+        <td *ngIf="book.availableQuantity > 0">{{book.author}}</td>
+        <td *ngIf="book.availableQuantity > 0">{{book.genre}}</td>
+        <td *ngIf="book.availableQuantity > 0">{{book.rating}}/5</td>
+        <td *ngIf="showAdminBoard == true && book.availableQuantity > 0">{{book.count}}</td>
+        <td *ngIf="showAdminBoard == true && book.availableQuantity > 0">{{book.availableQuantity}}</td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+<ng-template #loggedOut>
+  Please login for look books
+</ng-template>
+
+<pagination-controls class="pagination pagination justify-content-end" (pageChange)="p = $event"></pagination-controls>

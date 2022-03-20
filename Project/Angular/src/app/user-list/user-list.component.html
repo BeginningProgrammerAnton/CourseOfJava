@@ -1,0 +1,35 @@
+<div class="panel panel-primary"*ngIf="info.token; else loggedOut">
+  <div class="panel-heading">
+    <h2>All Users</h2>
+
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th *ngIf="showAdminBoard">Add role moderator</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr on-click="userDetails(user.id)" *ngFor="let user of users | async">
+        <td>{{user.id}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <div *ngFor="let role of user.roles">
+            {{role.name}}
+          </div>
+        </td>
+        <td *ngIf="showAdminBoard"><button class="btn btn-success" (click)="addRole(user.id)">Add Mod</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #loggedOut>
+  Please login for look books
+</ng-template>

@@ -1,0 +1,35 @@
+<div class="panel panel-primary"*ngIf="info.token; else loggedOut">
+  <div class="panel-heading">
+    <h2>All books</h2>
+  </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th on-click = "sortName()">Name</th>
+        <th on-click="sortAuthor()">Author</th>
+        <th on-click="sortGenre()">Genre</th>
+        <th on-click="sortRating()">Rating</th>
+        <th *ngIf="showAdminBoard == true">Count</th>
+        <th *ngIf="showAdminBoard == true">Available Quantity</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr on-click = "bookDetails(book.id)" *ngFor="let book of books | async| paginate: { itemsPerPage: 5, currentPage: p }" >
+        <td>{{book.name}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.genre}}</td>
+        <td>{{book.rating}}/5</td>
+        <td *ngIf="showAdminBoard == true">{{book.count}}</td>
+        <td *ngIf="showAdminBoard == true">{{book.availableQuantity}}</td>
+      </tr>
+
+      </tbody>
+    </table>
+  <pagination-controls class="pagination pagination justify-content-end" (pageChange)="p = $event"></pagination-controls>
+</div>
+<ng-template #loggedOut>
+  Please login for look books
+</ng-template>
+
+

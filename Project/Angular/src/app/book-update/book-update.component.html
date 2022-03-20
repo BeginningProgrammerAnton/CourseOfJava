@@ -1,0 +1,97 @@
+<h3>Update Book</h3>
+<div [hidden]="isSuccessful" style="width: 400px;">
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="book.name" name="name" #name="ngModel">
+    </div>
+    <div class="alert-danger" *ngIf="name.errors && f.submitted">
+      <div *ngIf="name.errors.required">Name is required</div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Author:</label>
+      <input type="text" class="form-control" id="author" required [(ngModel)]="book.author" name="author" #author="ngModel">
+    </div>
+    <div class="alert-danger" *ngIf="author.errors && f.submitted">
+      <div *ngIf="author.errors.required">Author is required</div>
+    </div>
+
+    <div class="form-group">
+      <div class="dropdown">
+        <label for="name">Rating:</label>
+        <button style="width: 400px; text-align: left" class="form-control" type="button" id="rating" data-bs-toggle="dropdown" aria-expanded="false">
+          {{book.rating}}
+        </button>
+        <div class="dropdown-content">
+          <a on-click="book.rating = 0">0</a>
+          <a on-click="book.rating = 1">1</a>
+          <a on-click="book.rating = 2">2</a>
+          <a on-click="book.rating = 3">3</a>
+          <a on-click="book.rating = 4">4</a>
+          <a on-click="book.rating = 5">5</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="dropdown">
+        <label for="name">Genre:</label>
+        <button style="width: 400px; text-align: left" class="form-control" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {{book.genre}}
+        </button>
+        <div class="dropdown-content">
+          <a on-click="book.genre = 'FANTASY'">FANTASY</a>
+          <a on-click="book.genre = 'DETECTIVE'">DETECTIVE</a>
+          <a on-click="book.genre = 'ADVENTURE'">ADVENTURE</a>
+          <a on-click="book.genre = 'DRAMA'">DRAMA</a>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="name">Count:</label>
+      <input type="number" class="form-control" id="count" required [(ngModel)]="book.count"  name="count" #count="ngModel">
+    </div>
+
+
+
+    <div class="alert-danger" *ngIf="count.errors && f.submitted">
+      <div *ngIf="count.errors.required">Count is required</div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="name">Available Quantity:</label>
+      <input type="number" class="form-control" id="availableQuantity" required [(ngModel)]="book.availableQuantity" name="availableQuantity" #AQ="ngModel">
+    </div>
+
+
+    <div class="alert-danger" *ngIf="AQ.errors && f.submitted">
+      <div *ngIf="AQ.errors.required">Available quantity is required</div>
+
+    </div>
+    <div class="alert-danger" *ngIf="book.availableQuantity > book.count">{{errorMessage}}</div>
+
+    <div class="form-group">
+      <label for="name">Description:</label>
+      <input type="text" class="form-control" id="discription" required [(ngModel)]="book.discription" name="availableQuantity" #descr="ngModel">
+    </div>
+
+    <div class="alert-danger" *ngIf="descr.errors && f.submitted">
+      <div *ngIf="descr.errors.required">Description is required</div>
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>
+<div class="alert alert-success" *ngIf="isSuccessful">
+  Your update is successful!
+</div>
+

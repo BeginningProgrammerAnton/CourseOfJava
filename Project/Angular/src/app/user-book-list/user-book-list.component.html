@@ -1,0 +1,30 @@
+<div class="panel panel-primary"*ngIf="info.token; else loggedOut">
+  <div class="panel-heading">
+    <h2>All User books</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Book</th>
+        <th>Date return</th>
+        <th>Credit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let userBook of userBooks | async">
+        <td>{{userBook.id}}</td>
+        <td on-click="userDetails(userBook.user.id)">{{userBook.user.username}}</td>
+        <td on-click="bookDetails(userBook.book.id)">{{userBook.book.name}}</td>
+        <td>{{userBook.comebackDate}}</td>
+        <td>{{userBook.credit}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #loggedOut>
+  Please login for look books
+</ng-template>

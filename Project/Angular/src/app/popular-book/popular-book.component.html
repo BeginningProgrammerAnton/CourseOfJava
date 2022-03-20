@@ -1,0 +1,26 @@
+<div class="panel panel-primary"*ngIf="info.token; else loggedOut">
+  <div class="panel-heading">
+    <h2>Popular Books</h2>
+  </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Position</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Count taken</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr on-click = "bookDetails(book.id)" *ngFor="let book of books | async; let i = index" [attr.data-index]="i">
+        <td>{{i + 1}}</td>
+        <td>{{book.name}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.countTaken}}</td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+<ng-template #loggedOut>
+  Please login for look books
+</ng-template>
